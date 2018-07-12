@@ -1,5 +1,6 @@
 package com.example.joseluis.holamundo;
 
+import android.animation.Animator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,26 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(MainActivity.this, "Cui cui we", Toast.LENGTH_SHORT)
                         .show();
+
+                final View lasChelasKrnal = findViewById(R.id.img_chelas);
+                lasChelasKrnal.animate()
+                        .alpha(0)
+                        .setDuration(300)
+                        .setListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animation) {}
+
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                lasChelasKrnal.setVisibility(View.VISIBLE);
+                            }
+
+                            @Override
+                            public void onAnimationCancel(Animator animation) {}
+
+                            @Override
+                            public void onAnimationRepeat(Animator animation) { }
+                        });
             }
         });
     }
