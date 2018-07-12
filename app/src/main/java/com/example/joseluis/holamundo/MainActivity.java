@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
                 final View lasChelasKrnal = findViewById(R.id.img_chelas);
                 lasChelasKrnal.animate()
-                        .alpha(0)
+                        .alpha(1)
                         .setDuration(300)
                         .setListener(new Animator.AnimatorListener() {
                             @Override
@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                             public void onAnimationCancel(Animator animation) {}
 
                             @Override
-                            public void onAnimationRepeat(Animator animation) { }
+                            public void onAnimationRepeat(Animator animation) {}
                         });
             }
         });
