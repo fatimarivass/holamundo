@@ -5,4 +5,6 @@
     <color name="colorAccent">#FF4081</color>
     <color name="my_favorite_color">#fff06b</color>
 
+    <color name="light_sea_green">#1de9b6</color>
+    <color name="colorSecondary">@color/light_sea_green</color>
 </resources>
