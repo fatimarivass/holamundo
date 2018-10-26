@@ -10,7 +10,7 @@ import android.widget.Toast;
  * Hay dos formas de hacer que una vista reaccione a un click, una es que la actividad implemente
  * {@link View.OnClickListener} y la otra es que a cada botón le pongas click listener y ahí definas
  * qué hacer. En términos prácticos es cuestión de preferencias, por lo general es un poco más claro
- * el código si haces lo segudo, pero con lo primero agrupas todas las acciones en un sólo lugar y
+ * el código si haces lo segundo, pero con lo primero agrupas todas las acciones en un sólo lugar y
  * son más fáciles de ver.
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {

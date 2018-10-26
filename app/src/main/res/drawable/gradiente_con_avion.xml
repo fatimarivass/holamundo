@@ -2,5 +2,5 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@drawable/circulo_rojo" />
     <item android:drawable="@drawable/gradient_texture_circle"/>
-    <item android:drawable="@drawable/Avion" />
+    <item android:drawable="@drawable/avion" />
 </layer-list>
