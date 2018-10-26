@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      * no tienen click listener, tenemos que poder distinguir a cuál le aplicamos la acción.
      * D:
      * Khómo diablos?
+     * Un claro ejemplo de código claro :P y bien escrito es la definición del click. Debes poderlo
+     * leer como "cuando se hace click en una vista, o referencia de una vista llamada 'v', se hará lo siguiente, sin regresar nada"
+     * Omite el "override" por ahora.
      */
     @Override
     public void onClick(View v) {
