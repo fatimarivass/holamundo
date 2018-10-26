@@ -100,7 +100,7 @@
     <path
         android:fillColor="#00000000"
         android:pathData="M0,89L108,89"
-        android:strokeColor="#33FFFFFF"
+        android:strokeColor="#fd7b0000"
         android:strokeWidth="0.8" />
     <path
         android:fillColor="#00000000"

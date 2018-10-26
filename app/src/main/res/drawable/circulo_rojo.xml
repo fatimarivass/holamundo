@@ -2,7 +2,7 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
     <solid
-        android:color="#f44336"/>
+        android:color="#a12323"/>
 
     <size
         android:width="100dp"

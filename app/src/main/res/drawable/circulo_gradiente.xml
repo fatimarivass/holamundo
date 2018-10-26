@@ -2,12 +2,14 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
     <gradient
-        android:angle="225"
+        android:angle="500"
         android:endColor="@color/colorSecondary"
         android:startColor="@color/colorPrimary"
-        android:type="linear" />
+        android:type="radial"
+        android:gradientRadius="@dimen/circle_item_size"/>
 
     <size
-        android:width="@dimen/circle_item_size"
-        android:height="@dimen/circle_item_size"/>
-</shape>
+        android:width="200dp"
+        android:height="200dp">
+
+    </size>

@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="2">
 
+<<<<<<< Updated android:upstream
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <ImageView android:id="@+id/avioncito"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/gradiente_con_avion"/>
+        <ImageView
+            android:id="@+id/avioncito"
+            android:layout_width="167dp"
+            android:layout_height="192dp"
+            android:contentDescription="TODO"
+            android:src="@drawable/gradiente_con_avion" />
 
     </FrameLayout>
 
@@ -28,26 +31,41 @@
             android:id="@+id/btn_anim_1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""/>
+            android:text="Desplazar arriba"/>
 
         <Button
             android:id="@+id/btn_anim_2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""/>
+            android:text="Desplazar a la derecha"/>
 
         <Button
             android:id="@+id/btn_anim_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""/>
+            android:text="Decir cuicui "/>
 
         <Button
             android:id="@+id/btn_anim_4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text=""/>
+            android:text="Girar"/>
 
-    </LinearLayout>
+    </LinearLayout><![CDATA[
+    =======
 
+
+
+
+
+    "
+        app:srcCompat="@drawable/letra" />
+
+
+
+
+]]>
 </LinearLayout>
+
+>>>>>>> Stashed changes
+
