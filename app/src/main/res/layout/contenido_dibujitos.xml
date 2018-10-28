@@ -7,15 +7,16 @@
     android:weightSum="2">
 
     <FrameLayout
+        android:id="@+id/contenedor_avoincito"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
 
         <ImageView
             android:id="@+id/avioncito"
-            android:layout_width="167dp"
-            android:layout_height="192dp"
-            android:contentDescription="TODO"
+            android:layout_width="150dp"
+            android:layout_height="140dp"
+            android:layout_gravity="end|bottom"
             android:src="@drawable/gradiente_con_avion" />
 
     </FrameLayout>
@@ -27,28 +28,28 @@
         android:orientation="vertical">
 
         <Button
-            android:id="@+id/btn_anim_1"
+            android:id="@+id/btn_despegar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Desplazar arriba"/>
+            android:text="Despegar"/>
 
         <Button
-            android:id="@+id/btn_anim_2"
+            android:id="@+id/btn_girar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Desplazar a la derecha"/>
+            android:text="Girar"/>
 
         <Button
-            android:id="@+id/btn_anim_3"
+            android:id="@+id/btn_decir_cui"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Decir cuicui "/>
 
         <Button
-            android:id="@+id/btn_anim_4"
+            android:id="@+id/btn_depesgar_acel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Girar"/>
+            android:text="Despegar acelerando"/>
 
     </LinearLayout>
 </LinearLayout>

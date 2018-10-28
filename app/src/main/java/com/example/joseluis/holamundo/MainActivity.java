@@ -1,8 +1,18 @@
 package com.example.joseluis.holamundo;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.LinearInterpolator;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
@@ -15,24 +25,139 @@ import android.widget.Toast;
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    ImageView avioncito;
+    Float anchuraDePantalla = 0f;
+    Float alturaContenedor = 0f;
+    FrameLayout contenedorAvion;
+    private static final int equisde = 2000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contenido_dibujitos);
 
         // Aquí decimos que el click listener es la actividad, o sea 'this' porque así se llama la clase
-        findViewById(R.id.btn_anim_1).setOnClickListener(this);
-        findViewById(R.id.btn_anim_2).setOnClickListener(this);
+        findViewById(R.id.btn_girar).setOnClickListener(this);
+        findViewById(R.id.btn_despegar).setOnClickListener(this);
+        findViewById(R.id.btn_depesgar_acel).setOnClickListener(this);
+        findViewById(R.id.btn_decir_cui).setOnClickListener(this);
 
-        findViewById(R.id.btn_anim_3).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+//        findViewById(R.id.btn_depesgar_acel).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
                 // Aquí no necesitamos hacer switch porque el OnClickListener es un objeto anónimo,
                 // así se le llama en java cuando usas un new en una interfaz, que en teoría no puede
                 // ser instanciada o usarse con un new, pero como es una interfaz que sólo tiene una
                 // función, se le llama interfaz funcional y se le permite esa excepción.
+//            }
+//        });
+
+        avioncito = findViewById(R.id.avioncito);
+
+        contenedorAvion = findViewById(R.id.contenedor_avoincito);
+    }
+
+    private void empezarAnimacion(final Animacion animacion) {
+        switch (animacion) {
+            case GIRAR: {
+                // va a girar dos veces, porque empieza en 0 grados y termina en 720, o sea 360 x 2
+                // y va a durar 2 segundos, puede decirme por qué?
+                ValueAnimator animator = ValueAnimator.ofFloat(0f, 720f);
+                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        // Aquí tenemos que hacer otro "truco" aunque se puede considerar como "falla"
+                        // del compilador porque getAnimatedValue() regresa un Object, y lo tenemos
+                        // que convertir a float, por eso esta sintaxis un poco rara:
+                        avioncito.setRotation((float) animation.getAnimatedValue());
+                    }
+                });
+                animator.setInterpolator(new LinearInterpolator());
+                animator.setDuration(equisde);
+                animator.start();
+
+                break;
             }
-        });
+
+            case DESPEGAR: {
+                ValueAnimator animator = ValueAnimator.ofFloat(0f, -anchuraDePantalla);
+                animator.setInterpolator(new LinearInterpolator());
+                animator.setDuration(equisde);
+                animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        avioncito.setTranslationX((float)animation.getAnimatedValue());
+                    }
+                });
+
+                // Con esto regresamos el avioncito a su posición original
+                animator.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        avioncito.setTranslationX(0);
+                    }
+                });
+                animator.start();
+
+                break;
+            }
+
+            case DESPEGAR_ACELERANDO: {
+                ValueAnimator izquierda = ValueAnimator.ofFloat(0f, -anchuraDePantalla);
+                izquierda.setInterpolator(new AccelerateInterpolator(1.4f));
+                izquierda.setDuration(equisde);
+                izquierda.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        avioncito.setTranslationX((float)animation.getAnimatedValue());
+                    }
+                });
+
+                // Con esto regresamos el avioncito a su posición original
+                izquierda.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        avioncito.setTranslationX(0);
+                    }
+                });
+                izquierda.start();
+
+                ValueAnimator arriba = ValueAnimator.ofFloat(0f, -anchuraDePantalla);
+                arriba.setInterpolator(new AccelerateInterpolator(2f));
+                arriba.setDuration(equisde);
+                arriba.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        avioncito.setTranslationY((float)animation.getAnimatedValue());
+                    }
+                });
+                arriba.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        avioncito.setTranslationY(0);
+                    }
+                });
+
+                arriba.start();
+            }
+        }
+    }
+
+    // Este es otro método del ciclo de vida que nos va a ayudar a saber cuánto espacio tenemos disponible
+    // para animar el avioncito
+    // Por ejemplo esto no lo sabía hacer, ni qué hace exactamente, pero toda la info sobre
+    // animaciones lo saqué de aquí: https://www.raywenderlich.com/350-android-animation-tutorial-with-kotlin
+    // sólo que está en Kotlin y pues es muy diferente el proyecto
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        // Otro casting
+        anchuraDePantalla = (float) metrics.widthPixels;
+        alturaContenedor = (float)contenedorAvion.getHeight();
     }
 
     /**
@@ -78,7 +203,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
              */
 
             // Literalmente dices "en caso de que sea este ID, haz lo que sigue hasta donde dice break;
-            case R.id.btn_anim_1:
+            case R.id.btn_despegar:
+                // Y ahora la animación. Normalmente, si necesitas ejecutar algún código repetitivo
+                // incluso con pequeñas variaciones debes pensar en que debes hacer un método que lo haga
+                empezarAnimacion(Animacion.DESPEGAR);
+                break;
+
+            // Esta es otra sintaxis del case con la que te ahorras el break, no la conocía hasta hace poco
+            // CORRECCION: no te ahorras el break pero te ayuda a ver más fácil el cuerpo del case.
+            // Si no pones break se sigue ejecutando lo de abajo valiendole berga al compilador
+            case R.id.btn_girar: {
+                empezarAnimacion(Animacion.GIRAR);
+                break;
+            }
+
+            case R.id.btn_decir_cui: {
                 // Más sobre el ámbito de variables, si por alguna razón necesito usar otra variable
                 // aquí, sólo va a existir en memoria en este bloque y no se puede usar en ninguna
                 // otra parte
@@ -104,15 +243,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this, elMensaje, Toast.LENGTH_SHORT)
                         .show();
 
-                // Y ahora la animación
 
+                final MediaPlayer player = MediaPlayer.create(this, R.raw.cui);
+
+                if (player.isPlaying()) {
+                    player.stop();
+                    player.release();
+                }
+
+                // Esto no es neceario, pero si no lo hacemos llenaríamos la memoria del cel y podemos
+                // causar un crash
+                player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        player.release();
+                    }
+                });
+
+                // Esto pues sí es necesario :P
+                player.start();
 
                 break;
+            }
 
-            // Esta es otra sintaxis del case con la que te ahorras el break, no la conocía hasta hace poco
-            case R.id.btn_anim_2: {
-
+            case R.id.btn_depesgar_acel: {
+                empezarAnimacion(Animacion.DESPEGAR_ACELERANDO);
+                break;
             }
         }
+    }
+
+    enum Animacion {
+        GIRAR,
+        DESPEGAR,
+        DESPEGAR_ACELERANDO
     }
 }
