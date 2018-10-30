@@ -13,6 +13,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.Toast;
 
 
@@ -25,6 +26,42 @@ import android.widget.Toast;
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    /* Estas son varibles pero como son digamos "globales" para la clase no se llama variable sino
+    miembro (*emoji solecito*) de la clase. Si el tipo de dato (tipo, de ahora en adelante) es otra
+    clase que hace algo más que contener datos se le llama "dependencia", porque es otro objecto que
+    necesita este para funcionar bien y hacer lo que debe. En este caso sí le podemos llamar variable
+    y no dependencia porque son referencias a vistas dentro de esta pantalla. Alguien puede alegar
+    que bajo ese argumento también se le puede llamar dependencia, pero no, porque las dependencias
+    son mucho más funcionales y auxiliares.
+
+    Recuerda que una clase sólo tiene dos cosas: miembros o variables y acciones o métodos. Los métodos
+    llevan paréntesis y los miembros no. Hay otro modificador de miembros y métodos que es su "visibilidad"
+    y hay 4 tipos; public, protected, default (no se escribe nada), y private. Eso para despúes, sólo
+    tenlo en mente. Los miembros se declaran como (recuerda que aquí las mayúsculas importan mucho):
+
+    Cuando veas esto [] significa que es algo opcional
+
+    [visibilidad] Tipo nombre;         // Esta variable va a ser null hasta que le asignes algo
+    [visibilidad] Tipo nombre = new Tipo();  // Llama al constructor sin argumentos para inicializarlo
+
+    Si el dato no lleva mayúscula, como algunos números, los booleanos, y las palabras (String es la excepción)
+    se inicializan así:
+    [visibilidad] tipo nombre = [valor];
+
+    En cambio, los método se definen así:
+    [visibilidad] [tipo de dato que regresa] nombre([argumentos]) {
+
+    }
+
+    Como puedes ver es muy diferente. Ahora, una cosa es decir quë vas a hacer (o tu IMPLEMENTACIÓN)
+    que es eso de arriba, y otra es ya hacerlo. Cuando quieres hacer algo que hace un método, lo ejecutas así:
+
+    nombre([argumentos]);
+
+
+    Poco a poco y practicando vas a ir pudiendo entender el flujo de los programas
+
+     */
     ImageView avioncito;
     Float anchuraDePantalla = 0f;
     Float alturaContenedor = 0f;
@@ -36,7 +73,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.contenido_dibujitos);
 
-        // Aquí decimos que el click listener es la actividad, o sea 'this' porque así se llama la clase
+        // Checa la firma de la función findViewById(). Es:
+        // public <T extends View> View findViewById(int id)
+        // Cuando veas los caracteres < y > se está haciendo uso de otro truquito avanzado del compilador
+        // que por ahorita no vamos a discutir, llamado Generics, o Type Arguments.
+        // Pero puedes ver que la función acepta un número entero y regresa una Vista.
         findViewById(R.id.btn_girar).setOnClickListener(this);
         findViewById(R.id.btn_despegar).setOnClickListener(this);
         findViewById(R.id.btn_depesgar_acel).setOnClickListener(this);
@@ -52,6 +93,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //            }
 //        });
 
+        // Aquí asignamos el valor de la variable. Si dejas una variable o dependencia sin inicializar,
+        // o sea darle un valor y sobre todo que se guarde en memoria, vas a provocar un crash a la
+        // hora de querer usarla. Los "errores" en java se llaman Excepciones. Este tipo de excepción
+        // se llama NullPointerException, null es un valor parecido a void, pero en vez de significar
+        // "nada" significa "no asignado", los pointers o punteros es un concepto que no necesitas aprender
+        // por ahora pero son una referencia a la memoria. NullPointerException significa entonces que
+        // estás tratando de usar una variable que no está en memoria. Si usas mi tema, los miembros
+        // son de color como verdecito claro
         avioncito = findViewById(R.id.avioncito);
 
         contenedorAvion = findViewById(R.id.contenedor_avoincito);
@@ -181,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
          *        ^la segunda palabra de la funcion dice qué tipo de dato obtienes, o regresa
          *        No todas las funciones regresan algo, a veces sólo tienes que hacer una acción,
          *        en ese caso regresas 'void' que significa literalmente nada. ¿Ya te fijaste qué
-         *        regresa la función del click? Ah, int es una abrevación de "integer" o sea número entero
+         *        regresa la función del click? Ah, int es una abreviación de "integer" o sea número entero
          */
         switch (v.getId()) {
             /* ¿Por qué v.getId()? No está muy claro. ¿Qué diablos es "v"? Cuando escribes código debes
@@ -227,7 +276,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 /* String.format es una función para encadenar palabras con algún formato. Cada
                 %s
-                es un argumento que va después de la palabra que quieres formatear y van separados por
+                es un argumento que va dentro de la palabra que quieres formatear y van separados por
                 comas, el hecho de que puedas hacer una suma dentro de otro argumento es algo así
                 como un truquito del compilador que su mente inocente debe aprender a aprenciar, como
                 ese hay muchos.
