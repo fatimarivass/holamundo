@@ -46,10 +46,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Si el dato no lleva mayúscula, como algunos números, los booleanos, y las palabras (String es la excepción)
     se inicializan así:
-    [visibilidad] tipo nombre = [valor];
+    [visibilidad] tipo nombre = valor;
 
     En cambio, los método se definen así:
-    [visibilidad] [tipo de dato que regresa] nombre([argumentos]) {
+    [visibilidad] TipoDeDatoQueRegresa nombre([argumentos]) {
 
     }
 
